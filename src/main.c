@@ -2,8 +2,7 @@
 #include <stdio.h>
 #include <sys/ioctl.h>
 #include "linux/i2c-dev.h"
-
-#define bme_dev_addr 0x77
+#include "bme680.h"
 
 int main() {
   int bme_fd  = open("/dev/i2c-1", O_RDWR);
