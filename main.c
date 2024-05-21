@@ -1,11 +1,20 @@
 #include <fcntl.h>
 #include <stdio.h>
+#include <sys/ioctl.h>
+#include "linux/i2c-dev.h"
 
-#define debug
-
+#define bme_dev_addr 0x77
 
 int main() {
   int bme_fd  = open("/dev/i2c-1", O_RDWR);
+  if (bme_fd < 0) {
+    printf("can't open device: %d\n", bme_fd);
+    return -1;
+  }
 
-  printf("this the bme fd: %d", bme_fd);
+  if (ioctl(bme_fd, I2C_SLAVE, bme_dev_addr) < 0) {
+    printf("can't call ioctl");
+    return -1;
+  }
+  printf("this the bme fd: %d\n", bme_fd);
 }
