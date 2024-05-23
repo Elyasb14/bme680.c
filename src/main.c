@@ -20,18 +20,19 @@ int main() {
     return -1;
   }
 
-  unsigned char temp_buf[0];
+  unsigned char temp_buf[32];
   int ret_code, res;
 
   // 0xd0 is the chip id register
   // write the reg addr to the bme_fd, read the result
   // result should be 0x61 (or 97)
+  // TODO: wrap this in a generic get_reg_data function
   temp_buf[0] = 0xd0;
   ret_code = write(bme_fd, temp_buf, 1);
   res = read(bme_fd, temp_buf, 1);
-  if (temp_buf[0] != 97 || temp_buf[0] != UINT8_C(0x61)) {
+  if (temp_buf[0] != 97 || ret_code < 0 || res != 1) {
     printf("%d is the wrong chip id", temp_buf[0]);
+    return -1;
   }
-
   return 0;
 }
