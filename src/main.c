@@ -17,6 +17,6 @@ int main() {
     return -1;
   }
 
-  printf("this the bme fd: %d\n", bme_fd);
+
   return 0;
 }
