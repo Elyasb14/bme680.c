@@ -18,5 +18,6 @@ int main() {
   }
 
 
+  printf("run success!\n");
   return 0;
 }

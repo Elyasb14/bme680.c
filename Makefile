@@ -1,13 +1,13 @@
 CC = gcc
-CFLAGS = -Wall -g
+CFLAGS = -Wall -g -Wextra -Wformat=2
 TARGET = main
 SOURCES = src/main.c
 
 build:
 	$(CC) $(CFLAGS) $(SOURCES) -o $(TARGET)
 
-build run:
-	$(CC) $(CFLAGS) $(SOURCES) -o $(TARGET) && ./$(TARGET)
+run:
+	./$(TARGET)
 
 clean:
 	rm -f $(TARGET)
