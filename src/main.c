@@ -26,7 +26,6 @@ int main() {
   // 0xd0 is the chip id register
   // write the reg addr to the bme_fd, read the result
   // result should be 0x61 (or 97)
-  // TODO: wrap this in a generic get_reg_data function
   temp_buf[0] = 0xd0;
   ret_code = write(bme_fd, temp_buf, 1);
   res = read(bme_fd, temp_buf, 1);
