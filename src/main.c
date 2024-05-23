@@ -1,11 +1,14 @@
-#include <fcntl.h>
-#include <stdio.h>
-#include <sys/ioctl.h>
-#include "linux/i2c-dev.h"
 #include "bme680.h"
+#include "linux/i2c-dev.h"
+#include <fcntl.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <string.h>
+#include <sys/ioctl.h>
+#include <unistd.h>
 
 int main() {
-  int bme_fd  = open("/dev/i2c-1", O_RDWR);
+  int bme_fd = open("/dev/i2c-1", O_RDWR);
   if (bme_fd < 0) {
     printf("can't open device: %d\n", bme_fd);
     return -1;
@@ -17,7 +20,18 @@ int main() {
     return -1;
   }
 
+  unsigned char temp_buf[0];
+  int ret_code, res;
 
-  printf("run success!\n");
+  // 0xd0 is the chip id register
+  // write the reg addr to the bme_fd, read the result
+  // result should be 0x61 (or 97)
+  temp_buf[0] = 0xd0;
+  ret_code = write(bme_fd, temp_buf, 1);
+  res = read(bme_fd, temp_buf, 1);
+  if (temp_buf[0] != 97 || temp_buf[0] != UINT8_C(0x61)) {
+    printf("%d is the wrong chip id", temp_buf[0]);
+  }
+
   return 0;
 }

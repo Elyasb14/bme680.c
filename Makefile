@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -g -Wextra -Wformat=2
+CFLAGS = -Wall -g
 TARGET = main
 SOURCES = src/main.c
 
