@@ -1,4 +1,3 @@
-#include "bme680.h"
 #include "linux/i2c-dev.h"
 #include <fcntl.h>
 #include <stdint.h>
@@ -6,6 +5,9 @@
 #include <string.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
+
+#define BME_DEV_ADDR 0x77
+#define BME_LEN_TEMP_COEFF_1 UINT8_C(23)
 
 int main() {
   int bme_fd = open("/dev/i2c-1", O_RDWR);
@@ -39,6 +41,6 @@ int main() {
   reg_buf[0] = 0x8a;
   ret_code = write(bme_fd, reg_buf, 1);
   res = read(bme_fd, reg_buf, BME_LEN_TEMP_COEFF_1);
-  printf("%d\n", reg_buf[0]);
+  printf("%d\n", reg_buf[0]); 
   return 0;
 }

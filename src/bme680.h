@@ -1,2 +1,0 @@
-#define BME_DEV_ADDR 0x77
-#define BME_LEN_TEMP_COEFF_1 UINT8_C(23)
